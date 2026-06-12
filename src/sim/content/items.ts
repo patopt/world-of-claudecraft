@@ -3,8 +3,8 @@ import type { ItemDef, PlayerClass } from '../types';
 // Archetype groups for class-locked rewards (REWARD_ARCHETYPE hands warrior
 // rewards to paladins/shamans etc., so the lock must admit the whole group).
 const WAR: PlayerClass[] = ['warrior', 'paladin', 'shaman'];
-const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid'];
-const ROG: PlayerClass[] = ['rogue', 'hunter'];
+const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid', 'necromancer'];
+const ROG: PlayerClass[] = ['rogue', 'hunter', 'monk'];
 
 // ---------------------------------------------------------------------------
 // Items
@@ -178,6 +178,9 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   greyjaw_fang: { id: 'greyjaw_fang', name: "Old Greyjaw's Fang", kind: 'quest', sellValue: 0, questId: 'q_greyjaw' },
   weathered_ledger_page: { id: 'weathered_ledger_page', name: 'Weathered Ledger Page', kind: 'quest', sellValue: 0, questId: 'q_names_of_the_dead' },
   morthen_grimoire: { id: 'morthen_grimoire', name: "Morthen's Grimoire", kind: 'quest', sellValue: 0, questId: 'q_gravecallers_trail' },
+  festival_cask: { id: 'festival_cask', name: 'Festival Cask', kind: 'quest', sellValue: 0, questId: 'q_the_long_road_home' },
+  memorial_wreath: { id: 'memorial_wreath', name: 'Memorial Wreath', kind: 'quest', sellValue: 0, questId: 'q_the_vale_remembers' },
+  chronicle_page: { id: 'chronicle_page', name: 'Chronicle Page', kind: 'quest', sellValue: 0, questId: 'q_the_vale_chronicle' },
   // --- junk (gray) ---
   wolf_fang: { id: 'wolf_fang', name: 'Cracked Wolf Fang', kind: 'junk', quality: 'poor', sellValue: 4 },
   bandit_bandana: { id: 'bandit_bandana', name: 'Red Bandana', kind: 'junk', quality: 'poor', sellValue: 6 },

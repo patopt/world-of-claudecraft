@@ -179,6 +179,18 @@ export const VISUALS: Record<string, VisualDef> = {
     show: ['2H_Staff'],
     tint: 0x7da05c, tintStrength: 0.45,
   },
+  player_necromancer: {
+    url: `${CHARS}/mage.glb`, height: HUMANOID_H,
+    clips: kaykit(['2H_Melee_Attack_Chop']),
+    show: ['2H_Staff', 'Mage_Cape'],
+    tint: 0x5fae84, tintStrength: 0.5,
+  },
+  player_monk: {
+    url: `${CHARS}/rogue.glb`, height: HUMANOID_H,
+    clips: kaykit(['Dualwield_Melee_Attack_Chop']),
+    show: ['Rogue_Cape'],
+    tint: 0x46b89a, tintStrength: 0.45,
+  },
 
   // -- forms ---------------------------------------------------------------
   form_sheep: {

@@ -23,6 +23,9 @@ export class Input {
   camPitch = 0.32;
   camDist = 12;
   autorun = false;
+  // virtual joystick state, written by TouchControls (x right, y down, -1..1)
+  touchMove = { x: 0, y: 0 };
+  touchJump = false;
   private dragDistance = 0;
   private downButton = -1;
 
@@ -105,15 +108,16 @@ export class Input {
     const k = this.keys;
     const bothButtons = this.leftDown && this.rightDown;
     const mouselook = this.rightDown;
-    const forward = k.has('KeyW') || k.has('ArrowUp') || bothButtons || this.autorun;
-    const back = k.has('KeyS') || k.has('ArrowDown');
+    const jx = this.touchMove.x, jy = this.touchMove.y;
+    const forward = k.has('KeyW') || k.has('ArrowUp') || bothButtons || this.autorun || jy < -0.25;
+    const back = k.has('KeyS') || k.has('ArrowDown') || jy > 0.25;
     const aHeld = k.has('KeyA') || k.has('ArrowLeft');
     const dHeld = k.has('KeyD') || k.has('ArrowRight');
     const strafeLeft = k.has('KeyQ') || (mouselook && aHeld);
     const strafeRight = k.has('KeyE') || (mouselook && dHeld);
-    const turnLeft = !mouselook && aHeld;
-    const turnRight = !mouselook && dHeld;
-    const jump = k.has('Space');
+    const turnLeft = !mouselook && (aHeld || jx < -0.35);
+    const turnRight = !mouselook && (dHeld || jx > 0.35);
+    const jump = k.has('Space') || this.touchJump;
     return { forward, back, turnLeft, turnRight, strafeLeft, strafeRight, jump };
   }
 }

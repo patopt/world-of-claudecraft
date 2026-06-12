@@ -12,9 +12,10 @@ export const CHANNEL_PUSHBACK_FRACTION = 0.25; // vanilla: each hit shaves 25% o
 
 export type PlayerClass =
   | 'warrior' | 'paladin' | 'hunter' | 'rogue' | 'priest'
-  | 'shaman' | 'mage' | 'warlock' | 'druid';
+  | 'shaman' | 'mage' | 'warlock' | 'druid' | 'necromancer' | 'monk';
 export const ALL_CLASSES: PlayerClass[] = [
   'warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid',
+  'necromancer', 'monk',
 ];
 export type ResourceType = 'rage' | 'mana' | 'energy';
 

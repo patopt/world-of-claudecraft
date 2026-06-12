@@ -167,7 +167,7 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
     pos: { x: -10, z: 656 }, facing: 0.8, color: 0xf7f9f9,
     questIds: [
       'q_zealots', 'q_cult_orders', 'q_necromancers', 'q_wyrm_sigils', 'q_breaking_the_seal',
-      'q_voice_below', 'q_sanctum_gate', 'q_velkhar', 'q_gravewyrm',
+      'q_voice_below', 'q_sanctum_gate', 'q_velkhar', 'q_gravewyrm', 'q_wyrmfall_tidings',
     ],
     greeting: 'From a chapel yard in the Vale to the roof of the world... the trail we have followed ends here. I can feel the mountain listening.',
   },
@@ -193,6 +193,12 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
     questIds: ['q_trophies_of_thornpeak', 'q_storm_tempered_steel'],
     vendorItems: ['highwatch_warblade', 'craghorn_staff', 'icevein_dirk'],
     greeting: 'Forge is hot and the grindstone is turning. If it cuts, I sell it.',
+  },
+  pilgrim_sorrel: {
+    id: 'pilgrim_sorrel', name: 'Pilgrim Sorrel', title: 'Pilgrim of the Light',
+    pos: { x: 14, z: 662 }, facing: -1.8, color: 0xe8daef,
+    questIds: ['q_beads_of_the_fallen'],
+    greeting: 'I walked here from the Vale to pray at the high shrine, $C — and found the mountain already full of prayers gone wrong.',
   },
   loremaster_caddis: {
     id: 'loremaster_caddis', name: 'Loremaster Caddis', title: 'Loremaster',
@@ -447,6 +453,24 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     itemRewards: { warrior: 'gravewyrm_scale_hauberk', mage: 'wyrmcult_grand_robe', rogue: 'wyrmscale_jerkin' },
     requiresQuest: 'q_velkhar', minLevel: 18, suggestedPlayers: 5,
   },
+  q_beads_of_the_fallen: {
+    id: 'q_beads_of_the_fallen', name: 'Beads of the Fallen',
+    giverNpcId: 'pilgrim_sorrel', turnInNpcId: 'pilgrim_sorrel',
+    text: 'The Wyrmcult zealots were pilgrims once, $N — folk like me, who climbed this mountain to pray and heard the wrong voice answer. The prayer beads they still clutch were strung in honest chapels. Bring me 5 sets of them, and I will carry their names home to be mourned as the people they were.',
+    completionText: 'Frayed, but I know this knotwork — these were strung in Eastbrook chapel. They will go home, every one. The Light keep you, $N.',
+    objectives: [{ type: 'collect', itemId: 'frayed_prayer_beads', count: 5, label: 'Frayed Prayer Beads' }],
+    xpReward: 2400, copperReward: 1000, itemRewards: {},
+    minLevel: 17,
+  },
+  q_wyrmfall_tidings: {
+    id: 'q_wyrmfall_tidings', name: 'Tidings of the Wyrmfall',
+    giverNpcId: 'brother_aldric_highwatch', turnInNpcId: 'marshal_redbrook',
+    text: 'It is finished, $N — and the first to know must be the town where the first bone stirred. Captain Thessaly has posted the proclamation of the Wyrm\'s fall at the Highwatch gate. Take a copy and carry it down the long road to Marshal Redbrook in Eastbrook. Walk it proudly. You earned every mile of it.',
+    completionText: 'The Gravewyrm, dead — and by the same hand that thinned my wolves a lifetime ago. Eastbrook owes you more than it can pay, $N... but watch us try. Stay for the festival.',
+    objectives: [{ type: 'collect', itemId: 'wyrmfall_proclamation', count: 1, label: 'Wyrmfall Proclamation' }],
+    xpReward: 1800, copperReward: 1500, itemRewards: {},
+    requiresQuest: 'q_gravewyrm',
+  },
   q_trophies_of_thornpeak: {
     id: 'q_trophies_of_thornpeak', name: 'Trophies of Thornpeak',
     giverNpcId: 'armorer_hode', turnInNpcId: 'armorer_hode',
@@ -473,7 +497,8 @@ export const ZONE3_QUEST_ORDER = [
   'q_elementals', 'q_shard_cores', 'q_kazzix', 'q_zealots', 'q_cult_orders',
   'q_necromancers', 'q_revenants', 'q_revenant_vanguard', 'q_wyrm_sigils', 'q_breaking_the_seal',
   'q_voice_below', 'q_sanctum_gate', 'q_korgath', 'q_velkhar', 'q_gravewyrm',
-  'q_trophies_of_thornpeak', 'q_storm_tempered_steel',
+  'q_trophies_of_thornpeak', 'q_storm_tempered_steel', 'q_beads_of_the_fallen',
+  'q_wyrmfall_tidings',
 ];
 
 // ---------------------------------------------------------------------------
@@ -529,6 +554,13 @@ export const ZONE3_OBJECTS: GroundObjectDef[] = [
     name: 'Sanctum Key Shard',
     positions: [{ x: -6, z: 872 }, { x: -2, z: 876 }, { x: 2, z: 873 }, { x: 6, z: 878 }],
   },
+  {
+    // kept ~5 yd off Captain Thessaly and Scout Maren so interact() still
+    // prefers the NPCs when standing beside them
+    itemId: 'wyrmfall_proclamation',
+    name: 'Wyrmfall Proclamation',
+    positions: [{ x: 0, z: 659 }, { x: 11, z: 668 }],
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -538,6 +570,7 @@ export const ZONE3_OBJECTS: GroundObjectDef[] = [
 export const ZONE3_ITEMS: Record<string, ItemDef> = {
   // --- quest items ---
   highwatch_summons: { id: 'highwatch_summons', name: 'Highwatch Summons', kind: 'quest', sellValue: 0, questId: 'q_highwatch_summons' },
+  wyrmfall_proclamation: { id: 'wyrmfall_proclamation', name: 'Wyrmfall Proclamation', kind: 'quest', sellValue: 0, questId: 'q_wyrmfall_tidings' },
   ridge_stalker_pelt: { id: 'ridge_stalker_pelt', name: 'Ridge Stalker Pelt', kind: 'quest', sellValue: 0, questId: 'q_stalker_pelts' },
   glowing_wax: { id: 'glowing_wax', name: 'Glowing Wax', kind: 'quest', sellValue: 0, questId: 'q_glowing_wax' },
   ogre_war_totem: { id: 'ogre_war_totem', name: 'Ogre War Totem', kind: 'quest', sellValue: 0, questId: 'q_ogre_totems' },
@@ -559,11 +592,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   revenant_silk_robe: {
     id: 'revenant_silk_robe', name: 'Revenant Silk Robe', kind: 'armor', slot: 'chest', quality: 'uncommon',
-    stats: { armor: 60, int: 7, spi: 4 }, sellValue: 800, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    stats: { armor: 60, int: 7, spi: 4 }, sellValue: 800, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   nightwalk_jerkin: {
     id: 'nightwalk_jerkin', name: 'Nightwalk Jerkin', kind: 'armor', slot: 'chest', quality: 'uncommon',
-    stats: { armor: 105, agi: 7, sta: 2 }, sellValue: 800, requiredClass: ['rogue', 'hunter'],
+    stats: { armor: 105, agi: 7, sta: 2 }, sellValue: 800, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   zealotsbane_blade: {
     id: 'zealotsbane_blade', name: 'Zealotsbane Blade', kind: 'weapon', slot: 'mainhand', quality: 'uncommon',
@@ -571,11 +604,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   emberwood_staff: {
     id: 'emberwood_staff', name: 'Emberwood Staff', kind: 'weapon', slot: 'mainhand', quality: 'uncommon',
-    weapon: { min: 20, max: 33, speed: 3.0 }, stats: { int: 8, spi: 3 }, sellValue: 900, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    weapon: { min: 20, max: 33, speed: 3.0 }, stats: { int: 8, spi: 3 }, sellValue: 900, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   cultist_flayer: {
     id: 'cultist_flayer', name: 'Cultist Flayer', kind: 'weapon', slot: 'mainhand', quality: 'uncommon',
-    weapon: { min: 12, max: 19, speed: 1.7, dagger: true }, stats: { agi: 7 }, sellValue: 900, requiredClass: ['rogue', 'hunter'],
+    weapon: { min: 12, max: 19, speed: 1.7, dagger: true }, stats: { agi: 7 }, sellValue: 900, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   // --- quest & dungeon blues (rare) ---
   drogmars_skullcleaver: {
@@ -584,11 +617,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   ogre_bonecharm_staff: {
     id: 'ogre_bonecharm_staff', name: 'Ogre Bonecharm Staff', kind: 'weapon', slot: 'mainhand', quality: 'rare',
-    weapon: { min: 24, max: 38, speed: 3.0 }, stats: { int: 9, spi: 4 }, sellValue: 2000, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    weapon: { min: 24, max: 38, speed: 3.0 }, stats: { int: 9, spi: 4 }, sellValue: 2000, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   gutripper_shiv: {
     id: 'gutripper_shiv', name: 'Gutripper Shiv', kind: 'weapon', slot: 'mainhand', quality: 'rare',
-    weapon: { min: 14, max: 22, speed: 1.7, dagger: true }, stats: { agi: 8, sta: 3 }, sellValue: 2000, requiredClass: ['rogue', 'hunter'],
+    weapon: { min: 14, max: 22, speed: 1.7, dagger: true }, stats: { agi: 8, sta: 3 }, sellValue: 2000, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   stormshard_leggings: {
     id: 'stormshard_leggings', name: 'Stormshard Leggings', kind: 'armor', slot: 'legs', quality: 'rare',
@@ -604,11 +637,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   staff_of_velkhar: {
     id: 'staff_of_velkhar', name: 'Staff of Velkhar', kind: 'weapon', slot: 'mainhand', quality: 'rare',
-    weapon: { min: 27, max: 43, speed: 3.0 }, stats: { int: 10, spi: 5 }, sellValue: 2500, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    weapon: { min: 27, max: 43, speed: 3.0 }, stats: { int: 10, spi: 5 }, sellValue: 2500, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   shadowmeld_tunic: {
     id: 'shadowmeld_tunic', name: 'Shadowmeld Tunic', kind: 'armor', slot: 'chest', quality: 'rare',
-    stats: { armor: 130, agi: 9, sta: 4 }, sellValue: 2500, requiredClass: ['rogue', 'hunter'],
+    stats: { armor: 130, agi: 9, sta: 4 }, sellValue: 2500, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   gravewyrm_scale_hauberk: {
     id: 'gravewyrm_scale_hauberk', name: 'Gravewyrm Scale Hauberk', kind: 'armor', slot: 'chest', quality: 'rare',
@@ -616,11 +649,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   wyrmcult_grand_robe: {
     id: 'wyrmcult_grand_robe', name: 'Wyrmcult Grand Robe', kind: 'armor', slot: 'chest', quality: 'rare',
-    stats: { armor: 75, int: 11, spi: 5 }, sellValue: 3000, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    stats: { armor: 75, int: 11, spi: 5 }, sellValue: 3000, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   wyrmscale_jerkin: {
     id: 'wyrmscale_jerkin', name: 'Wyrmscale Jerkin', kind: 'armor', slot: 'chest', quality: 'rare',
-    stats: { armor: 145, agi: 10, sta: 5 }, sellValue: 3000, requiredClass: ['rogue', 'hunter'],
+    stats: { armor: 145, agi: 10, sta: 5 }, sellValue: 3000, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   // --- the three epics (Korzul drops) ---
   wyrmfang_greatblade: {
@@ -629,11 +662,11 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   staff_of_the_gravewyrm: {
     id: 'staff_of_the_gravewyrm', name: 'Staff of the Gravewyrm', kind: 'weapon', slot: 'mainhand', quality: 'epic',
-    weapon: { min: 32, max: 52, speed: 3.0 }, stats: { int: 12, spi: 6 }, sellValue: 8000, requiredClass: ['mage', 'priest', 'warlock', 'druid'],
+    weapon: { min: 32, max: 52, speed: 3.0 }, stats: { int: 12, spi: 6 }, sellValue: 8000, requiredClass: ['mage', 'priest', 'warlock', 'druid', 'necromancer'],
   },
   fang_of_korzul: {
     id: 'fang_of_korzul', name: 'Fang of Korzul', kind: 'weapon', slot: 'mainhand', quality: 'epic',
-    weapon: { min: 19, max: 30, speed: 1.7, dagger: true }, stats: { agi: 11, sta: 5 }, sellValue: 8000, requiredClass: ['rogue', 'hunter'],
+    weapon: { min: 19, max: 30, speed: 1.7, dagger: true }, stats: { agi: 11, sta: 5 }, sellValue: 8000, requiredClass: ['rogue', 'hunter', 'monk'],
   },
   // --- vendor food & drink (Quartermaster Bree) ---
   trail_hardtack: {

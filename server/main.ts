@@ -142,7 +142,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       if (req.method === 'POST') {
         const body = await readBody(req);
         if (!validCharName(body.name)) return json(res, 400, { error: 'invalid character name (2-16 letters)' });
-        const validClasses = ['warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid'];
+        const validClasses = ['warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid', 'necromancer', 'monk'];
         if (!validClasses.includes(body.class)) return json(res, 400, { error: 'invalid class' });
         const chars = await listCharacters(accountId);
         if (chars.length >= 10) return json(res, 400, { error: 'character limit reached' });

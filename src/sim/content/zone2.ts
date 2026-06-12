@@ -200,6 +200,12 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
     questIds: ['q_widows', 'q_broodmother'],
     greeting: 'Mind the thicket west of the road. The webs are thick as sailcloth this season.',
   },
+  ferryman_osk: {
+    id: 'ferryman_osk', name: 'Ferryman Osk', title: 'Fenbridge Ferryman',
+    pos: { x: -8, z: 314 }, facing: 2.2, color: 0x148f77,
+    questIds: ['q_lost_soles'],
+    greeting: 'Flat-bottomed boat, flat honest fare. The fen takes a toll of its own, mind — usually your boots.',
+  },
   scout_maren: {
     id: 'scout_maren', name: 'Scout Maren', title: "Marshal's Scout",
     pos: { x: 6, z: 312 }, facing: -0.6, color: 0x7d6608,
@@ -318,6 +324,15 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     objectives: [{ type: 'collect', itemId: 'chipped_tusk', count: 6, label: 'Chipped Tusk' }],
     xpReward: 1500, copperReward: 550, itemRewards: {},
     minLevel: 10,
+  },
+  q_lost_soles: {
+    id: 'q_lost_soles', name: 'Lost Soles',
+    giverNpcId: 'ferryman_osk', turnInNpcId: 'ferryman_osk',
+    text: 'Every passenger the prowlers chased into the reeds left a boot behind, and a one-booted ferryman makes for poor advertising. The cats carry them back to their dens like trophies. Fetch me 5 of those soggy moccasins, $N — there are folk at the gate walking on rags.',
+    completionText: 'Five soles, only mildly chewed. You would not believe what a dry boot is worth out here.',
+    objectives: [{ type: 'collect', itemId: 'soggy_moccasin', count: 5, label: 'Soggy Moccasin' }],
+    xpReward: 850, copperReward: 350, itemRewards: {},
+    minLevel: 7,
   },
   q_drowned: {
     id: 'q_drowned', name: 'The Drowned Dead',
@@ -445,7 +460,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
 
 export const ZONE2_QUEST_ORDER = [
   'q_fenbridge_muster', 'q_prowlers', 'q_prowler_pelts', 'q_fen_supplies',
-  'q_wardens_rounds', 'q_tusks_for_trade',
+  'q_wardens_rounds', 'q_tusks_for_trade', 'q_lost_soles',
   'q_deepfen', 'q_idols', 'q_deepfen_purge', 'q_widows', 'q_broodmother',
   'q_drowned', 'q_drowned_censers', 'q_no_rest', 'q_trolls', 'q_troll_fetishes',
   'q_grubjaw', 'q_cult_camp', 'q_summoners', 'q_deacon', 'q_bastion_door',
@@ -518,8 +533,8 @@ export const ZONE2_OBJECTS: GroundObjectDef[] = [
 // Archetype groups for class-locked rewards (REWARD_ARCHETYPE hands warrior
 // rewards to paladins/shamans etc., so the lock must admit the whole group).
 const WAR: PlayerClass[] = ['warrior', 'paladin', 'shaman'];
-const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid'];
-const ROG: PlayerClass[] = ['rogue', 'hunter'];
+const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid', 'necromancer'];
+const ROG: PlayerClass[] = ['rogue', 'hunter', 'monk'];
 
 export const ZONE2_ITEMS: Record<string, ItemDef> = {
   // --- quest items ---

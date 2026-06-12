@@ -82,8 +82,8 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
 // Quest reward fallback by archetype: classes without an explicit entry use these.
 export const REWARD_ARCHETYPE: Record<PlayerClass, PlayerClass> = {
   warrior: 'warrior', paladin: 'warrior', shaman: 'warrior',
-  rogue: 'rogue', hunter: 'rogue',
-  mage: 'mage', priest: 'mage', warlock: 'mage', druid: 'mage',
+  rogue: 'rogue', hunter: 'rogue', monk: 'rogue',
+  mage: 'mage', priest: 'mage', warlock: 'mage', druid: 'mage', necromancer: 'mage',
 };
 
 // Vanilla group XP multipliers by party size (1-5).
