@@ -190,7 +190,7 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
   armorer_hode: {
     id: 'armorer_hode', name: 'Armorer Hode', title: 'Master Armorer',
     pos: { x: -2, z: 672 }, facing: 2.8, color: 0x717d7e,
-    questIds: [],
+    questIds: ['q_trophies_of_thornpeak', 'q_storm_tempered_steel'],
     vendorItems: ['highwatch_warblade', 'craghorn_staff', 'icevein_dirk'],
     greeting: 'Forge is hot and the grindstone is turning. If it cuts, I sell it.',
   },
@@ -447,6 +447,24 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     itemRewards: { warrior: 'gravewyrm_scale_hauberk', mage: 'wyrmcult_grand_robe', rogue: 'wyrmscale_jerkin' },
     requiresQuest: 'q_velkhar', minLevel: 18, suggestedPlayers: 5,
   },
+  q_trophies_of_thornpeak: {
+    id: 'q_trophies_of_thornpeak', name: 'Trophies of Thornpeak',
+    giverNpcId: 'armorer_hode', turnInNpcId: 'armorer_hode',
+    text: 'Ogre toe rings — solid cast bronze, every one, and the brutes wear them into battle like dress jewelry. Five rings smelt down into a week of fittings for the wall. The ogres of the warcamp will not hand them over politely, $N.',
+    completionText: 'Five rings, one melt, a week of hinges and rivets for the wall. War makes strange quartermasters of us all.',
+    objectives: [{ type: 'collect', itemId: 'ogre_toe_ring', count: 5, label: 'Ogre Toe Ring' }],
+    xpReward: 2400, copperReward: 1100, itemRewards: {},
+    minLevel: 15,
+  },
+  q_storm_tempered_steel: {
+    id: 'q_storm_tempered_steel', name: 'Storm-Tempered Steel',
+    giverNpcId: 'armorer_hode', turnInNpcId: 'armorer_hode',
+    text: 'Quench a blade through a storm shard and the edge holds a charge of the crag\'s own lightning — for one strike, maybe two, but soldiers live and die on one strike. The Stormcrag elementals shed inert shards when they break. Bring me 5, $N.',
+    completionText: 'Feel the hum off that quench-trough? The next blades off my stone will bite like the storm itself.',
+    objectives: [{ type: 'collect', itemId: 'inert_storm_shard', count: 5, label: 'Inert Storm Shard' }],
+    xpReward: 2600, copperReward: 1200, itemRewards: {},
+    minLevel: 17,
+  },
 };
 
 export const ZONE3_QUEST_ORDER = [
@@ -455,6 +473,7 @@ export const ZONE3_QUEST_ORDER = [
   'q_elementals', 'q_shard_cores', 'q_kazzix', 'q_zealots', 'q_cult_orders',
   'q_necromancers', 'q_revenants', 'q_revenant_vanguard', 'q_wyrm_sigils', 'q_breaking_the_seal',
   'q_voice_below', 'q_sanctum_gate', 'q_korgath', 'q_velkhar', 'q_gravewyrm',
+  'q_trophies_of_thornpeak', 'q_storm_tempered_steel',
 ];
 
 // ---------------------------------------------------------------------------

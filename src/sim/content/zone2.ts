@@ -171,7 +171,7 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
   warden_fenwick: {
     id: 'warden_fenwick', name: 'Warden Fenwick', title: 'Warden of Fenbridge',
     pos: { x: 3, z: 304 }, facing: Math.PI, color: 0x7e5109,
-    questIds: ['q_fenbridge_muster', 'q_prowlers', 'q_deepfen', 'q_deepfen_purge', 'q_trolls', 'q_deacon'],
+    questIds: ['q_fenbridge_muster', 'q_prowlers', 'q_wardens_rounds', 'q_deepfen', 'q_deepfen_purge', 'q_trolls', 'q_deacon'],
     greeting: 'Hold at the gate, $C. Past those reeds, the fen does the killing for us.',
   },
   brother_aldric_fen: {
@@ -186,7 +186,7 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
   provisioner_hale: {
     id: 'provisioner_hale', name: 'Provisioner Hale', title: 'Provisioner',
     pos: { x: -4, z: 308 }, facing: Math.PI / 2, color: 0x1e8449,
-    questIds: ['q_prowler_pelts', 'q_fen_supplies', 'q_grubjaw'],
+    questIds: ['q_prowler_pelts', 'q_fen_supplies', 'q_tusks_for_trade', 'q_grubjaw'],
     vendorItems: [
       'fenbridge_rye', 'marsh_mint_tea', 'smoked_eel', 'silvermist_cordial',
       'bogiron_mace', 'fenreed_staff', 'mirefen_skinner', 'bogiron_hauberk',
@@ -297,6 +297,27 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     ],
     xpReward: 1250, copperReward: 500, itemRewards: {},
     requiresQuest: 'q_widows',
+  },
+  q_wardens_rounds: {
+    id: 'q_wardens_rounds', name: "The Warden's Rounds",
+    giverNpcId: 'warden_fenwick', turnInNpcId: 'warden_fenwick',
+    text: 'My patrol roster has more crossed-out names than living ones, and the rounds must still be walked. Take the west circuit for me, $N: 8 prowlers out of the reeds, 8 widows out of the thicket — and come back dry, if the fen allows it.',
+    completionText: 'Rounds walked, ledger squared. You would make a fine warden — if the fen does not eat you first.',
+    objectives: [
+      { type: 'kill', targetMobId: 'mire_prowler', count: 8, label: 'Mire Prowler slain' },
+      { type: 'kill', targetMobId: 'mire_widow', count: 8, label: 'Mirefen Widow slain' },
+    ],
+    xpReward: 1300, copperReward: 500, itemRewards: {},
+    minLevel: 8,
+  },
+  q_tusks_for_trade: {
+    id: 'q_tusks_for_trade', name: 'Tusks for Trade',
+    giverNpcId: 'provisioner_hale', turnInNpcId: 'provisioner_hale',
+    text: 'Carvers in the south pay silver for troll tusk — even chipped, it polishes up fine as ivory, and the mound trolls shed them in every brawl. Bring me 6 Chipped Tusks, $N, and Fenbridge\'s books climb out of the red for once.',
+    completionText: 'Look at the grain on these! The carvers will fight over them — and for once the fighting pays me.',
+    objectives: [{ type: 'collect', itemId: 'chipped_tusk', count: 6, label: 'Chipped Tusk' }],
+    xpReward: 1500, copperReward: 550, itemRewards: {},
+    minLevel: 10,
   },
   q_drowned: {
     id: 'q_drowned', name: 'The Drowned Dead',
@@ -424,6 +445,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
 
 export const ZONE2_QUEST_ORDER = [
   'q_fenbridge_muster', 'q_prowlers', 'q_prowler_pelts', 'q_fen_supplies',
+  'q_wardens_rounds', 'q_tusks_for_trade',
   'q_deepfen', 'q_idols', 'q_deepfen_purge', 'q_widows', 'q_broodmother',
   'q_drowned', 'q_drowned_censers', 'q_no_rest', 'q_trolls', 'q_troll_fetishes',
   'q_grubjaw', 'q_cult_camp', 'q_summoners', 'q_deacon', 'q_bastion_door',

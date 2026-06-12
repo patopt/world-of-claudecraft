@@ -10,7 +10,7 @@ import type { IWorld } from './world_api';
 import { assetsReady } from './render/assets/preload';
 import { DT, INTERACT_RANGE, PlayerClass, dist2d } from './sim/types';
 
-const WORLD_SEED = 20061; // fixed: World of Claudecraft is a persistent place
+const WORLD_SEED = 20061; // fixed: Valecraft Online is a persistent place
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.querySelector(sel) as T;
 

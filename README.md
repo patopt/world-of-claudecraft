@@ -1,6 +1,6 @@
-# World of Claudecraft — a WoW-Classic-style MMO
+# Valecraft Online — a WoW-Classic-style MMO
 
-![World of Claudecraft title screen](docs/screenshots/title-screen.jpg)
+![Valecraft Online title screen](docs/screenshots/title-screen.jpg)
 
 A vanilla-WoW-flavored micro-MMO you can host and play:
 
@@ -12,6 +12,18 @@ Both run the **same deterministic simulation core** (`src/sim/`), so the
 offline world behaves identically to what the authoritative multiplayer server
 runs for everyone online.
 
+## Play in 30 seconds (macOS)
+
+```bash
+./play.sh        # or: npm run play
+```
+
+That's it. The script checks for Node.js (20+ — `brew install node` if you
+don't have it), installs dependencies on first run, starts the game, and opens
+your browser at http://localhost:5173. Pick **Play Offline**, name your
+character, choose a class, and you're in — no database, no Docker, nothing
+else to set up. The same script works on Linux.
+
 ## Screenshots
 
 ![A party gathers outside the apothecary in Eastbrook](docs/screenshots/party-questing.jpg)
@@ -21,10 +33,6 @@ runs for everyone online.
 | ![Dusk at the Eastbrook campfire](docs/screenshots/eastbrook-dusk.jpg)<br>*Dusk at the Eastbrook campfire* | ![Elite pulls in the Hollow Crypt](docs/screenshots/hollow-crypt.jpg)<br>*Torch-lit elite pulls in the Hollow Crypt* |
 | ![The restless dead at the ruined chapel](docs/screenshots/restless-dead.jpg)<br>*The restless dead at the ruined chapel* | ![A brawl with Vale Bandits](docs/screenshots/vale-bandits.jpg)<br>*Outnumbered at the bandit camp* |
 | ![Old Greyjaw hunted down on the north road](docs/screenshots/old-greyjaw.jpg)<br>*Old Greyjaw, the rare spawn, run down on the north road* | ![Vendor and bags UI](docs/screenshots/vendor-and-bags.jpg)<br>*Gearing up at Smith Haldren's — tooltips, bags, coin* |
-
-![World of Claude](worldofclaude.png)
-
-![World of Claudecraft community](woc_community.png)
 
 ---
 
@@ -135,7 +143,7 @@ meadows east, the Webwood west, Mirror Lake northwest, a kobold copper dig
 southwest, a ruined chapel with restless dead northeast, and Gorrak's bandit
 camp southeast. The road north climbs through a mountain pass into **Mirefen
 Marsh** (6-13, hub: Fenbridge) and on up to **Thornpeak Heights** (13-20,
-hub: Highwatch) — three zones, ~60 quests, and one storyline: the Gravecaller
+hub: Highwatch) — three zones, ~70 quests, and one storyline: the Gravecaller
 conspiracy, from the first restless bones outside Eastbrook to **Korzul the
 Gravewyrm** beneath the peaks. Each hub has vendors (including weapon- and
 armorsmiths selling honest white gear), a graveyard, its own music, and a

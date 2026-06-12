@@ -1,11 +1,12 @@
 {
-  "name": "world-of-claudecraft",
+  "name": "valecraft-online",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
   "type": "module",
-  "description": "World of Claudecraft — a WoW-Classic-style micro-MMO + headless RL training environment",
+  "description": "Valecraft Online — a WoW-Classic-style micro-MMO + headless RL training environment",
   "scripts": {
+    "play": "bash play.sh",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

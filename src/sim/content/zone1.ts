@@ -148,27 +148,27 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   marshal_redbrook: {
     id: 'marshal_redbrook', name: 'Marshal Redbrook', title: 'Town Marshal',
     pos: { x: 4, z: 6 }, facing: Math.PI, color: 0xb7950b,
-    questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader'],
+    questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_proof_of_the_purge', 'q_ringleader'],
     greeting: 'Keep your blade close, $C. The Vale is not what it was.',
   },
   trader_wilkes: {
     id: 'trader_wilkes', name: 'Trader Wilkes', title: 'Provisioner',
     pos: { x: -7, z: 3 }, facing: Math.PI / 2, color: 0x1e8449,
-    questIds: ['q_boars', 'q_supplies'],
+    questIds: ['q_boars', 'q_supplies', 'q_linen_for_the_stall'],
     vendorItems: ['baked_bread', 'spring_water', 'roasted_boar', 'tough_jerky'],
     greeting: 'Fresh bread, clean water, fair prices. What can I get you?',
   },
   apothecary_lin: {
     id: 'apothecary_lin', name: 'Apothecary Lin', title: 'Herbalist',
     pos: { x: 11, z: -3 }, facing: -Math.PI / 2, color: 0x7d3c98,
-    questIds: ['q_spiders'],
+    questIds: ['q_spiders', 'q_legs_for_the_lab'],
     greeting: 'Careful where you step in the eastern woods, friend.',
   },
   brother_aldric: {
     id: 'brother_aldric', name: 'Brother Aldric', title: 'Priest of the Vale',
     pos: { x: -14, z: -10 }, facing: 0.8, color: 0xf7f9f9,
     questIds: [
-      'q_bones', 'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
+      'q_bones', 'q_ash_and_absolution', 'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
       'q_rite', 'q_sexton', 'q_hollow', 'q_gravecallers_trail', 'q_fenbridge_muster',
     ],
     greeting: 'The Light keep you. Even the dead find no rest here of late.',
@@ -176,7 +176,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   smith_haldren: {
     id: 'smith_haldren', name: 'Smith Haldren', title: 'Armorer & Weaponsmith',
     pos: { x: 7, z: 16.5 }, facing: -2.7, color: 0x707b7c,
-    questIds: [],
+    questIds: ['q_fangs_for_the_forge'],
     vendorItems: [
       'eastbrook_arming_sword', 'bronzework_mace', 'vale_carving_knife', 'hickory_shortstaff',
       'eastbrook_chain_vest', 'valespun_robe', 'tanned_leather_jerkin',
@@ -190,7 +190,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     // dock sat inside the Mudfin spawn radius and new players got ambushed
     // walking up to a quest giver
     pos: { x: -16, z: 6 }, facing: -0.75, color: 0x2471a3,
-    questIds: ['q_murlocs'],
+    questIds: ['q_murlocs', 'q_scales_of_the_mudfin'],
     greeting: 'Grlmurlgrl— sorry, been listening to those fish-men too long.',
   },
   foreman_odell: {
@@ -352,6 +352,59 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     xpReward: 900, copperReward: 400, itemRewards: {},
     requiresQuest: 'q_hollow',
   },
+  q_fangs_for_the_forge: {
+    id: 'q_fangs_for_the_forge', name: 'Fangs for the Forge',
+    giverNpcId: 'smith_haldren', turnInNpcId: 'smith_haldren',
+    text: 'Ground wolf fang hardens a quench better than any salt — an old trick of my master\'s, and I am clean out. The forest wolves north of town carry all I need in their jaws. Bring me 6 Cracked Wolf Fangs, $N.',
+    completionText: 'Hear that hiss? That is good steel getting better. My thanks, $N.',
+    objectives: [{ type: 'collect', itemId: 'wolf_fang', count: 6, label: 'Cracked Wolf Fang' }],
+    xpReward: 300, copperReward: 110, itemRewards: {},
+  },
+  q_legs_for_the_lab: {
+    id: 'q_legs_for_the_lab', name: 'Eight Legs, Four Doses',
+    giverNpcId: 'apothecary_lin', turnInNpcId: 'apothecary_lin',
+    text: 'The silk was for poultices — the legs are for antidotes. A lurker\'s leg keeps its venom for days if you take it fresh. Bring me 4 Twitching Spider Legs from the Webwood, $N, and half the Vale\'s spider bites stop being death sentences.',
+    completionText: 'Still twitching — fresh as I could ask for. The antidotes will be ready by morning.',
+    objectives: [{ type: 'collect', itemId: 'spider_leg', count: 4, label: 'Twitching Spider Leg' }],
+    xpReward: 380, copperReward: 140, itemRewards: {},
+    requiresQuest: 'q_spiders',
+  },
+  q_scales_of_the_mudfin: {
+    id: 'q_scales_of_the_mudfin', name: 'Scales of the Mudfin',
+    giverNpcId: 'fisherman_brandt', turnInNpcId: 'fisherman_brandt',
+    text: 'You drove them off, but my nets are still in ribbons — and it happens murloc scale makes the toughest net-patching I have ever tied. Strip 5 Slimy Murloc Scales off the Mudfin, $N, and the lake and I will call it even.',
+    completionText: 'Slimy, stinking, and strong as wire. The nets go back in the water tomorrow.',
+    objectives: [{ type: 'collect', itemId: 'mudfin_scale', count: 5, label: 'Slimy Murloc Scale' }],
+    xpReward: 480, copperReward: 170, itemRewards: {},
+    requiresQuest: 'q_murlocs',
+  },
+  q_linen_for_the_stall: {
+    id: 'q_linen_for_the_stall', name: 'Linen for the Stall',
+    giverNpcId: 'trader_wilkes', turnInNpcId: 'trader_wilkes',
+    text: 'Half the linen in the Vale ends up stuffed in a bandit\'s pocket or lining a kobold nest, and my stall has not had a clean bolt in weeks. Gather 6 Linen Scraps back from whatever vermin is hoarding them and I will pay honest coin.',
+    completionText: 'Torn, but it washes. You would be surprised what a market town goes through in linen.',
+    objectives: [{ type: 'collect', itemId: 'linen_scrap', count: 6, label: 'Linen Scrap' }],
+    xpReward: 450, copperReward: 160, itemRewards: {},
+    minLevel: 3,
+  },
+  q_proof_of_the_purge: {
+    id: 'q_proof_of_the_purge', name: 'Proof of the Purge',
+    giverNpcId: 'marshal_redbrook', turnInNpcId: 'marshal_redbrook',
+    text: 'The magistrate in the south pays a bounty per bandit — but he pays on proof, not on my word. Every one of Gorrak\'s cutthroats wears that red bandana. Bring me 5 of them, $N, and the bounty coin flows back to Eastbrook.',
+    completionText: 'Five bandanas, five bounties. The magistrate can hardly argue with the cloth.',
+    objectives: [{ type: 'collect', itemId: 'bandit_bandana', count: 5, label: 'Red Bandana' }],
+    xpReward: 600, copperReward: 280, itemRewards: {},
+    requiresQuest: 'q_bandits',
+  },
+  q_ash_and_absolution: {
+    id: 'q_ash_and_absolution', name: 'Ash and Absolution',
+    giverNpcId: 'brother_aldric', turnInNpcId: 'brother_aldric',
+    text: 'The bones you fell do not always stay where they drop — fragments scatter, and every shard left in the open is a thread the Gravecaller can pull again. Gather 6 Bone Fragments from the chapel yard, $N, and I will burn them with blessing.',
+    completionText: 'To ash, and to rest. No whisper calls back what fire has absolved.',
+    objectives: [{ type: 'collect', itemId: 'bone_fragments', count: 6, label: 'Bone Fragments' }],
+    xpReward: 650, copperReward: 240, itemRewards: {},
+    requiresQuest: 'q_bones',
+  },
   q_bandits: {
     id: 'q_bandits', name: 'Bandits of the Vale',
     giverNpcId: 'marshal_redbrook', turnInNpcId: 'marshal_redbrook',
@@ -375,8 +428,10 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
 };
 
 export const ZONE1_QUEST_ORDER = [
-  'q_wolves', 'q_boars', 'q_spiders', 'q_greyjaw', 'q_murlocs',
-  'q_supplies', 'q_bandits', 'q_mine', 'q_bones', 'q_ringleader',
+  'q_wolves', 'q_fangs_for_the_forge', 'q_boars', 'q_spiders', 'q_legs_for_the_lab',
+  'q_greyjaw', 'q_murlocs', 'q_scales_of_the_mudfin',
+  'q_supplies', 'q_linen_for_the_stall', 'q_bandits', 'q_proof_of_the_purge',
+  'q_mine', 'q_bones', 'q_ash_and_absolution', 'q_ringleader',
   'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
   'q_rite', 'q_sexton', 'q_hollow', 'q_gravecallers_trail',
 ];
