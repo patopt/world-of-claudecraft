@@ -164,7 +164,7 @@ export class GameServer {
       name,
       cls,
     });
-    this.broadcastSystem(`${name} has entered World of Claudecraft.`);
+    this.broadcastSystem(`${name} has entered Valecraft Online.`);
     return session;
   }
 

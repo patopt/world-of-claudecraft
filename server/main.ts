@@ -142,7 +142,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       if (req.method === 'POST') {
         const body = await readBody(req);
         if (!validCharName(body.name)) return json(res, 400, { error: 'invalid character name (2-16 letters)' });
-        const validClasses = ['warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid'];
+        const validClasses = ['warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid', 'necromancer', 'monk'];
         if (!validClasses.includes(body.class)) return json(res, 400, { error: 'invalid class' });
         const chars = await listCharacters(accountId);
         if (chars.length >= 10) return json(res, 400, { error: 'character limit reached' });
@@ -281,7 +281,7 @@ async function main(): Promise<void> {
 
   game.start();
   server.listen(PORT, () => {
-    console.log(`World of Claudecraft server listening on http://localhost:${PORT}`);
+    console.log(`Valecraft Online server listening on http://localhost:${PORT}`);
     console.log(`  REST: /api/register /api/login /api/characters /api/status`);
     console.log(`  WS:   /ws, then first message {t:"auth",token,character}`);
   });

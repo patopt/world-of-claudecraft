@@ -1,6 +1,6 @@
-# World of Claudecraft — a WoW-Classic-style MMO
+# Valecraft Online — a WoW-Classic-style MMO
 
-![World of Claudecraft title screen](docs/screenshots/title-screen.jpg)
+![Valecraft Online title screen](docs/screenshots/title-screen.jpg)
 
 A vanilla-WoW-flavored micro-MMO you can host and play:
 
@@ -12,6 +12,36 @@ Both run the **same deterministic simulation core** (`src/sim/`), so the
 offline world behaves identically to what the authoritative multiplayer server
 runs for everyone online.
 
+## Play in 30 seconds (macOS)
+
+```bash
+./play.sh        # or: npm run play
+```
+
+That's it. The script checks for Node.js (20+ — `brew install node` if you
+don't have it), installs dependencies on first run, starts the game, and opens
+your browser at http://localhost:5173. Pick **Play Offline**, name your
+character, choose a class, and you're in — no database, no Docker, nothing
+else to set up. The same script works on Linux.
+
+## Play on iPhone / iPad
+
+The game has full **touch controls** (virtual joystick, camera drag, pinch
+zoom, tap to target, double-tap to attack/loot/talk, and on-screen jump /
+interact / target / chat buttons). Two ways to get it on an iOS device:
+
+1. **In Safari, zero install** — start the dev server reachable on your LAN
+   (`npm run dev -- --host`) and open `http://<your-mac-ip>:5173` on the
+   phone. Add to Home Screen for fullscreen.
+2. **As a native app (unsigned IPA)** — the *iOS unsigned IPA* GitHub Action
+   (`.github/workflows/ios-ipa.yml`) builds the Capacitor iOS wrapper on every
+   push to `main` (or on demand via *Run workflow*) and uploads
+   `ValecraftOnline-unsigned.ipa` as an artifact. The IPA is unsigned: install
+   it with your own Apple ID through [AltStore](https://altstore.io),
+   Sideloadly, or sign it with your own certificate. To build locally on a
+   Mac with Xcode instead: `npm run build && npx cap sync ios && npx cap open
+   ios`.
+
 ## Screenshots
 
 ![A party gathers outside the apothecary in Eastbrook](docs/screenshots/party-questing.jpg)
@@ -21,10 +51,6 @@ runs for everyone online.
 | ![Dusk at the Eastbrook campfire](docs/screenshots/eastbrook-dusk.jpg)<br>*Dusk at the Eastbrook campfire* | ![Elite pulls in the Hollow Crypt](docs/screenshots/hollow-crypt.jpg)<br>*Torch-lit elite pulls in the Hollow Crypt* |
 | ![The restless dead at the ruined chapel](docs/screenshots/restless-dead.jpg)<br>*The restless dead at the ruined chapel* | ![A brawl with Vale Bandits](docs/screenshots/vale-bandits.jpg)<br>*Outnumbered at the bandit camp* |
 | ![Old Greyjaw hunted down on the north road](docs/screenshots/old-greyjaw.jpg)<br>*Old Greyjaw, the rare spawn, run down on the north road* | ![Vendor and bags UI](docs/screenshots/vendor-and-bags.jpg)<br>*Gearing up at Smith Haldren's — tooltips, bags, coin* |
-
-![World of Claude](worldofclaude.png)
-
-![World of Claudecraft community](woc_community.png)
 
 ---
 
@@ -129,19 +155,27 @@ locked out of the story.
 npm run dev        # open http://localhost:5173 -> Play Offline
 ```
 
-Name your character, pick any of the nine classes, and you're in **Eastbrook
+Name your character, pick any of the eleven classes, and you're in **Eastbrook
 Vale** (levels 1-7): a market town ringed by six hubs — wolf runs north, boar
 meadows east, the Webwood west, Mirror Lake northwest, a kobold copper dig
 southwest, a ruined chapel with restless dead northeast, and Gorrak's bandit
 camp southeast. The road north climbs through a mountain pass into **Mirefen
 Marsh** (6-13, hub: Fenbridge) and on up to **Thornpeak Heights** (13-20,
-hub: Highwatch) — three zones, ~60 quests, and one storyline: the Gravecaller
-conspiracy, from the first restless bones outside Eastbrook to **Korzul the
-Gravewyrm** beneath the peaks. Each hub has vendors (including weapon- and
+hub: Highwatch) — three zones, ~80 quests, and one complete storyline: the
+Gravecaller conspiracy, from the first restless bones outside Eastbrook to
+**Korzul the Gravewyrm** beneath the peaks — and an epilogue arc that carries
+the news home: proclaim the Wyrmfall, feast at the Brookside Inn, mourn the
+fallen, and walk the whole road of your own legend one last time for Bard
+Ellery's *Vale Chronicle*. Each hub has vendors (including weapon- and
 armorsmiths selling honest white gear), a graveyard, its own music, and a
 zone map.
 
 ### Controls (classic layout)
+
+On touch devices the game switches to mobile controls automatically: left
+virtual joystick to move/turn, drag the world to look, pinch to zoom, tap to
+target, double-tap to attack/loot/talk, plus jump / interact / target / chat
+buttons. The action bar, windows and dialogs are all tappable.
 
 | Input | Action |
 |---|---|
@@ -163,7 +197,7 @@ zone map.
 - XP curve 400/900/1400/… through level 20; mob XP `45 + 5·L` with real zero-difference gray bands
 - 1.5 s GCD (1.0 s for rogues), weapon swing timers, 5-second mana rule
 
-**All nine vanilla classes (learn levels and rank values from vanilla, 1–20 —
+**Eleven classes — the nine vanilla ones plus two originals (learn levels and rank values from vanilla, 1–20 —
 spells gain ranks as you level: Lightning Bolt R2 at 8, R3 at 14, R4 at 20,
 plus new high-band abilities like Execute, Kidney Shot, Flash Heal,
 Stormstrike, and Starfire)**
@@ -187,6 +221,12 @@ Stormstrike, and Starfire)**
   Curse of Agony, **Drain Life** (channeled health steal)
 - *Druid*: Wrath, Healing Touch, Mark of the Wild, Moonfire, Rejuvenation,
   Thorns, Entangling Roots, **Bear Form** (toggle shapeshift at 10)
+- *Necromancer* (original): Bone Bolt, Bone Armor (absorb), Grave Rot,
+  Dark Mending, Chill of the Grave (slow), **Grip of the Dead** (root),
+  Wave of Decay (AoE), **Soul Leech** (channeled drain), Deathbloom
+- *Monk* (original): energy + **combo points**, Tiger Palm, Rising Kick
+  (finisher), Iron Palm, **Fortifying Brew** (absorb), Leg Sweep (stun),
+  Way of the Wind, Spinning Crane Kick (AoE), Mending Breath, Touch of Death
 - Heals can target party members (click a party frame, then heal); buffs are
   castable on friendly players; healing crits; absorb shields soak damage
   before health.

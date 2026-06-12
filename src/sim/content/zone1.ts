@@ -148,35 +148,36 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   marshal_redbrook: {
     id: 'marshal_redbrook', name: 'Marshal Redbrook', title: 'Town Marshal',
     pos: { x: 4, z: 6 }, facing: Math.PI, color: 0xb7950b,
-    questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader'],
+    questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_proof_of_the_purge', 'q_ringleader', 'q_wyrmfall_tidings', 'q_the_long_road_home'],
     greeting: 'Keep your blade close, $C. The Vale is not what it was.',
   },
   trader_wilkes: {
     id: 'trader_wilkes', name: 'Trader Wilkes', title: 'Provisioner',
     pos: { x: -7, z: 3 }, facing: Math.PI / 2, color: 0x1e8449,
-    questIds: ['q_boars', 'q_supplies'],
+    questIds: ['q_boars', 'q_supplies', 'q_linen_for_the_stall'],
     vendorItems: ['baked_bread', 'spring_water', 'roasted_boar', 'tough_jerky'],
     greeting: 'Fresh bread, clean water, fair prices. What can I get you?',
   },
   apothecary_lin: {
     id: 'apothecary_lin', name: 'Apothecary Lin', title: 'Herbalist',
     pos: { x: 11, z: -3 }, facing: -Math.PI / 2, color: 0x7d3c98,
-    questIds: ['q_spiders'],
+    questIds: ['q_spiders', 'q_legs_for_the_lab'],
     greeting: 'Careful where you step in the eastern woods, friend.',
   },
   brother_aldric: {
     id: 'brother_aldric', name: 'Brother Aldric', title: 'Priest of the Vale',
     pos: { x: -14, z: -10 }, facing: 0.8, color: 0xf7f9f9,
     questIds: [
-      'q_bones', 'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
+      'q_bones', 'q_ash_and_absolution', 'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
       'q_rite', 'q_sexton', 'q_hollow', 'q_gravecallers_trail', 'q_fenbridge_muster',
+      'q_the_vale_remembers',
     ],
     greeting: 'The Light keep you. Even the dead find no rest here of late.',
   },
   smith_haldren: {
     id: 'smith_haldren', name: 'Smith Haldren', title: 'Armorer & Weaponsmith',
     pos: { x: 7, z: 16.5 }, facing: -2.7, color: 0x707b7c,
-    questIds: [],
+    questIds: ['q_fangs_for_the_forge'],
     vendorItems: [
       'eastbrook_arming_sword', 'bronzework_mace', 'vale_carving_knife', 'hickory_shortstaff',
       'eastbrook_chain_vest', 'valespun_robe', 'tanned_leather_jerkin',
@@ -190,8 +191,21 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     // dock sat inside the Mudfin spawn radius and new players got ambushed
     // walking up to a quest giver
     pos: { x: -16, z: 6 }, facing: -0.75, color: 0x2471a3,
-    questIds: ['q_murlocs'],
+    questIds: ['q_murlocs', 'q_scales_of_the_mudfin'],
     greeting: 'Grlmurlgrl— sorry, been listening to those fish-men too long.',
+  },
+  innkeeper_mavis: {
+    id: 'innkeeper_mavis', name: 'Innkeeper Mavis', title: 'Keeper of the Brookside Inn',
+    pos: { x: 16, z: -2 }, facing: 2.6, color: 0xc0699a,
+    questIds: ['q_stew_for_the_road', 'q_the_long_road_home'],
+    vendorItems: ['baked_bread', 'spring_water'],
+    greeting: 'A warm hearth and a full bowl, $C — the Brookside has both, whatever the roads are like.',
+  },
+  bard_ellery: {
+    id: 'bard_ellery', name: 'Bard Ellery', title: 'Wandering Minstrel',
+    pos: { x: 1, z: -8 }, facing: 1.4, color: 0x5dade2,
+    questIds: ['q_a_song_of_wolves', 'q_the_vale_chronicle'],
+    greeting: 'Every tavern from here to the peaks wants a new song, $C — and the Vale keeps writing verses.',
   },
   foreman_odell: {
     id: 'foreman_odell', name: 'Foreman Odell', title: 'Mine Foreman',
@@ -352,6 +366,105 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     xpReward: 900, copperReward: 400, itemRewards: {},
     requiresQuest: 'q_hollow',
   },
+  q_fangs_for_the_forge: {
+    id: 'q_fangs_for_the_forge', name: 'Fangs for the Forge',
+    giverNpcId: 'smith_haldren', turnInNpcId: 'smith_haldren',
+    text: 'Ground wolf fang hardens a quench better than any salt — an old trick of my master\'s, and I am clean out. The forest wolves north of town carry all I need in their jaws. Bring me 6 Cracked Wolf Fangs, $N.',
+    completionText: 'Hear that hiss? That is good steel getting better. My thanks, $N.',
+    objectives: [{ type: 'collect', itemId: 'wolf_fang', count: 6, label: 'Cracked Wolf Fang' }],
+    xpReward: 300, copperReward: 110, itemRewards: {},
+  },
+  q_legs_for_the_lab: {
+    id: 'q_legs_for_the_lab', name: 'Eight Legs, Four Doses',
+    giverNpcId: 'apothecary_lin', turnInNpcId: 'apothecary_lin',
+    text: 'The silk was for poultices — the legs are for antidotes. A lurker\'s leg keeps its venom for days if you take it fresh. Bring me 4 Twitching Spider Legs from the Webwood, $N, and half the Vale\'s spider bites stop being death sentences.',
+    completionText: 'Still twitching — fresh as I could ask for. The antidotes will be ready by morning.',
+    objectives: [{ type: 'collect', itemId: 'spider_leg', count: 4, label: 'Twitching Spider Leg' }],
+    xpReward: 380, copperReward: 140, itemRewards: {},
+    requiresQuest: 'q_spiders',
+  },
+  q_scales_of_the_mudfin: {
+    id: 'q_scales_of_the_mudfin', name: 'Scales of the Mudfin',
+    giverNpcId: 'fisherman_brandt', turnInNpcId: 'fisherman_brandt',
+    text: 'You drove them off, but my nets are still in ribbons — and it happens murloc scale makes the toughest net-patching I have ever tied. Strip 5 Slimy Murloc Scales off the Mudfin, $N, and the lake and I will call it even.',
+    completionText: 'Slimy, stinking, and strong as wire. The nets go back in the water tomorrow.',
+    objectives: [{ type: 'collect', itemId: 'mudfin_scale', count: 5, label: 'Slimy Murloc Scale' }],
+    xpReward: 480, copperReward: 170, itemRewards: {},
+    requiresQuest: 'q_murlocs',
+  },
+  q_linen_for_the_stall: {
+    id: 'q_linen_for_the_stall', name: 'Linen for the Stall',
+    giverNpcId: 'trader_wilkes', turnInNpcId: 'trader_wilkes',
+    text: 'Half the linen in the Vale ends up stuffed in a bandit\'s pocket or lining a kobold nest, and my stall has not had a clean bolt in weeks. Gather 6 Linen Scraps back from whatever vermin is hoarding them and I will pay honest coin.',
+    completionText: 'Torn, but it washes. You would be surprised what a market town goes through in linen.',
+    objectives: [{ type: 'collect', itemId: 'linen_scrap', count: 6, label: 'Linen Scrap' }],
+    xpReward: 450, copperReward: 160, itemRewards: {},
+    minLevel: 3,
+  },
+  q_proof_of_the_purge: {
+    id: 'q_proof_of_the_purge', name: 'Proof of the Purge',
+    giverNpcId: 'marshal_redbrook', turnInNpcId: 'marshal_redbrook',
+    text: 'The magistrate in the south pays a bounty per bandit — but he pays on proof, not on my word. Every one of Gorrak\'s cutthroats wears that red bandana. Bring me 5 of them, $N, and the bounty coin flows back to Eastbrook.',
+    completionText: 'Five bandanas, five bounties. The magistrate can hardly argue with the cloth.',
+    objectives: [{ type: 'collect', itemId: 'bandit_bandana', count: 5, label: 'Red Bandana' }],
+    xpReward: 600, copperReward: 280, itemRewards: {},
+    requiresQuest: 'q_bandits',
+  },
+  q_ash_and_absolution: {
+    id: 'q_ash_and_absolution', name: 'Ash and Absolution',
+    giverNpcId: 'brother_aldric', turnInNpcId: 'brother_aldric',
+    text: 'The bones you fell do not always stay where they drop — fragments scatter, and every shard left in the open is a thread the Gravecaller can pull again. Gather 6 Bone Fragments from the chapel yard, $N, and I will burn them with blessing.',
+    completionText: 'To ash, and to rest. No whisper calls back what fire has absolved.',
+    objectives: [{ type: 'collect', itemId: 'bone_fragments', count: 6, label: 'Bone Fragments' }],
+    xpReward: 650, copperReward: 240, itemRewards: {},
+    requiresQuest: 'q_bones',
+  },
+  q_stew_for_the_road: {
+    id: 'q_stew_for_the_road', name: 'Stew for the Road',
+    giverNpcId: 'innkeeper_mavis', turnInNpcId: 'innkeeper_mavis',
+    text: 'My boar stew is why half the caravans stop at the Brookside at all, and my larder is down to onions. The meadow boars east of town carry the toughest, sweetest meat in the Vale — bring me 5 strips of Tough Jerky, $N, and supper is on the house.',
+    completionText: 'That is proper meadow boar, that is. The pot will sing tonight — and so will the drivers.',
+    objectives: [{ type: 'collect', itemId: 'tough_jerky', count: 5, label: 'Tough Jerky' }],
+    xpReward: 350, copperReward: 130, itemRewards: {},
+  },
+  q_a_song_of_wolves: {
+    id: 'q_a_song_of_wolves', name: 'A Song of Wolves and Boars',
+    giverNpcId: 'bard_ellery', turnInNpcId: 'bard_ellery',
+    text: 'I am writing a song about the heroes of this little town, and a balladeer cannot rhyme what he has not witnessed. Go be heroic where I can hear about it, $N: 6 wolves off the north road, 4 boars out of the east meadow, and I shall make you twelve verses of famous.',
+    completionText: 'Magnificent! "And the fangs came down like falling rain..." — oh, this will play well in Fenbridge.',
+    objectives: [
+      { type: 'kill', targetMobId: 'forest_wolf', count: 6, label: 'Forest Wolf slain' },
+      { type: 'kill', targetMobId: 'wild_boar', count: 4, label: 'Wild Boar slain' },
+    ],
+    xpReward: 400, copperReward: 150, itemRewards: {},
+  },
+  q_the_long_road_home: {
+    id: 'q_the_long_road_home', name: 'The Long Road Home',
+    giverNpcId: 'marshal_redbrook', turnInNpcId: 'innkeeper_mavis',
+    text: 'The Wyrm is dead and Eastbrook means to celebrate like it never has. The festival casks came in from the south this morning and the carters dumped them all over town. Round up 3 of them for Mavis at the Brookside, $N — tonight the whole Vale drinks to you.',
+    completionText: 'Casks at last! Roll them to the hearth, $N — tonight every cup in the Brookside is raised to your name.',
+    objectives: [{ type: 'collect', itemId: 'festival_cask', count: 3, label: 'Festival Cask' }],
+    xpReward: 1200, copperReward: 1000, itemRewards: {},
+    requiresQuest: 'q_wyrmfall_tidings',
+  },
+  q_the_vale_remembers: {
+    id: 'q_the_vale_remembers', name: 'The Vale Remembers',
+    giverNpcId: 'brother_aldric', turnInNpcId: 'brother_aldric',
+    text: 'Before the feasting, the remembering. The town has woven wreaths for those the Gravecallers took, and laid them at the graveyard and the old chapel yard where it all began. Gather 3 of them and bring them to me, $N — I will bless each name before the wreaths go to the families.',
+    completionText: 'Every name, blessed and at rest — truly at rest, for the first time since the bones first stirred. Thank you, $N. The Vale remembers, and so will I.',
+    objectives: [{ type: 'collect', itemId: 'memorial_wreath', count: 3, label: 'Memorial Wreath' }],
+    xpReward: 1500, copperReward: 800, itemRewards: {},
+    requiresQuest: 'q_the_long_road_home',
+  },
+  q_the_vale_chronicle: {
+    id: 'q_the_vale_chronicle', name: 'The Vale Chronicle',
+    giverNpcId: 'bard_ellery', turnInNpcId: 'bard_ellery',
+    text: 'I have begun the great chronicle of the Gravecaller war, $N — your war — but my draft pages are scattered where the story happened: one at the Fallen Chapel where the dead first rose, one at the Drowned Chapel in the fen, one at the gate of Highwatch. Walk the whole road of your own tale once more and bring them back to me.',
+    completionText: 'The chapel, the fen, the mountain... it reads like a legend because it is one. The Vale Chronicle is complete, $N — and it ends with your name. They will sing this one for a hundred years.',
+    objectives: [{ type: 'collect', itemId: 'chronicle_page', count: 3, label: 'Chronicle Page' }],
+    xpReward: 2500, copperReward: 8000, itemRewards: {},
+    requiresQuest: 'q_the_vale_remembers',
+  },
   q_bandits: {
     id: 'q_bandits', name: 'Bandits of the Vale',
     giverNpcId: 'marshal_redbrook', turnInNpcId: 'marshal_redbrook',
@@ -375,10 +488,15 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
 };
 
 export const ZONE1_QUEST_ORDER = [
-  'q_wolves', 'q_boars', 'q_spiders', 'q_greyjaw', 'q_murlocs',
-  'q_supplies', 'q_bandits', 'q_mine', 'q_bones', 'q_ringleader',
+  'q_wolves', 'q_fangs_for_the_forge', 'q_boars', 'q_stew_for_the_road', 'q_a_song_of_wolves',
+  'q_spiders', 'q_legs_for_the_lab',
+  'q_greyjaw', 'q_murlocs', 'q_scales_of_the_mudfin',
+  'q_supplies', 'q_linen_for_the_stall', 'q_bandits', 'q_proof_of_the_purge',
+  'q_mine', 'q_bones', 'q_ash_and_absolution', 'q_ringleader',
   'q_whispers', 'q_names_of_the_dead', 'q_silence_the_call',
   'q_rite', 'q_sexton', 'q_hollow', 'q_gravecallers_trail',
+  // epilogue — the road home after Korzul falls
+  'q_the_long_road_home', 'q_the_vale_remembers', 'q_the_vale_chronicle',
 ];
 
 // ---------------------------------------------------------------------------
@@ -433,6 +551,25 @@ export const ZONE1_OBJECTS: GroundObjectDef[] = [
     itemId: 'morthen_grimoire',
     name: "Morthen's Grimoire",
     positions: [{ x: 78, z: 86 }],
+  },
+  {
+    // kept clear of the quest NPCs so a player talking to them never grabs a
+    // cask by accident (interact picks the nearest target)
+    itemId: 'festival_cask',
+    name: 'Festival Cask',
+    positions: [{ x: 0, z: 20 }, { x: -12, z: 16 }, { x: 18, z: 10 }, { x: -20, z: -4 }],
+  },
+  {
+    itemId: 'memorial_wreath',
+    name: 'Memorial Wreath',
+    positions: [{ x: -10, z: -18 }, { x: -13, z: -17 }, { x: 86, z: 74 }, { x: 73, z: 73 }],
+  },
+  {
+    // Bard Ellery's epilogue: one page at each site of the saga — the Fallen
+    // Chapel, the Drowned Chapel in Mirefen, and the Highwatch gate.
+    itemId: 'chronicle_page',
+    name: 'Chronicle Page',
+    positions: [{ x: 80, z: 85 }, { x: 100, z: 432 }, { x: 5, z: 660 }],
   },
 ];
 

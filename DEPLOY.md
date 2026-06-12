@@ -1,9 +1,9 @@
-# Deploying World of Claudecraft on AWS
+# Deploying Valecraft Online on AWS
 
 > **Levy Street production** is deployed via Ansible, not this document:
 > the `eastbrook_game` role in the internal `ansible-scripts` repo runs
 > the stack on `idyllic-games-prod` behind nginx + certbot at
-> https://worldofclaudecraft.com. Re-running
+> https://valecraftonline.com. Re-running
 > `ansible-playbook playbooks/setup_server.yml -e target_host=idyllic-games-prod`
 > pulls and redeploys. The guide below is the generic, standalone path.
 
@@ -14,7 +14,7 @@ One EC2 instance runs everything: the game server, Postgres, and Caddy
 ## 1. Confirm the repo is public
 
 The standalone first-boot script clones
-`https://github.com/levy-street/world-of-claudecraft.git` anonymously. If you
+`https://github.com/patopt/world-of-claudecraft.git` anonymously. If you
 are deploying a private fork instead, use a deploy key or another secret
 manager-specific flow; do not paste long-lived personal access tokens into EC2
 user data.
@@ -113,7 +113,7 @@ For off-box safety, sync the directory to S3 occasionally:
 The admin dashboard (account/character/session metrics, live players,
 server health) is served by the same game server process:
 
-- **Production**: point `admin.worldofclaudecraft.com` at the instance
+- **Production**: point `admin.valecraftonline.com` at the instance
   (A record) and add a server block for it in the nginx config in the
   internal `ansible-scripts` repo, proxying to the same game port as the
   main site. The Node server serves the dashboard for any hostname

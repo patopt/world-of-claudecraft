@@ -14,9 +14,9 @@ function fakeReq(headers: Record<string, string>, remoteAddress: string) {
 
 describe('websocket authentication', () => {
   it('keeps bearer tokens out of the websocket URL', () => {
-    const url = buildWebSocketUrl('https:', 'worldofclaudecraft.com');
+    const url = buildWebSocketUrl('https:', 'valecraftonline.com');
 
-    expect(url).toBe('wss://worldofclaudecraft.com/ws');
+    expect(url).toBe('wss://valecraftonline.com/ws');
     expect(url).not.toContain('token');
   });
 

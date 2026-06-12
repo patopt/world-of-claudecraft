@@ -1,6 +1,7 @@
 import { Sim } from './sim/sim';
 import { Renderer } from './render/renderer';
-import { Input } from './game/input';
+import { Input, InputCallbacks } from './game/input';
+import { TouchControls, isTouchDevice } from './game/touch';
 import { Hud } from './ui/hud';
 import { audio } from './game/audio';
 import { music } from './game/music';
@@ -10,7 +11,10 @@ import type { IWorld } from './world_api';
 import { assetsReady } from './render/assets/preload';
 import { DT, INTERACT_RANGE, PlayerClass, dist2d } from './sim/types';
 
-const WORLD_SEED = 20061; // fixed: World of Claudecraft is a persistent place
+const WORLD_SEED = 20061; // fixed: Valecraft Online is a persistent place
+
+// flag touch devices immediately so the start screen lays out for phones too
+if (isTouchDevice()) document.body.classList.add('touch');
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string): T => document.querySelector(sel) as T;
 
@@ -116,7 +120,7 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
     }
   });
 
-  const input = new Input(canvas, {
+  const inputCallbacks: InputCallbacks = {
     onTab: () => world.tabTarget(),
     // slot 0 (key 1) is Attack for every class — auto-attack without needing
     // right-click; the remaining keys map onto the class kit shifted by one
@@ -145,7 +149,9 @@ async function startGame(world: IWorld, offlineSim: Sim | null, online: ClientWo
       }
     },
     onClickPick: (x, y, button) => handlePick(x, y, button),
-  });
+  };
+  const input = new Input(canvas, inputCallbacks);
+  if (isTouchDevice()) new TouchControls(canvas, input, inputCallbacks);
   input.camYaw = world.player.facing;
 
   function interactKey(): void {

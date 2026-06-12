@@ -409,7 +409,7 @@ export class Sim {
   }
 
   playerGcdFor(cls: PlayerClass): number {
-    return cls === 'rogue' ? 1.0 : GCD; // rogue GCD is 1.0 sec
+    return cls === 'rogue' || cls === 'monk' ? 1.0 : GCD; // energy classes use the 1.0 sec GCD
   }
   get playerGcd(): number {
     return this.playerGcdFor(this.primary.cls);
